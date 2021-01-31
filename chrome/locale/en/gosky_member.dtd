@@ -1,0 +1,10 @@
+<!ENTITY GoskyMember.backspace "Backspace">
+<!ENTITY GoskyMember.clear "Clear">
+<!ENTITY GoskyMember.submit "Submit">
+<!ENTITY GoskyMember.accept "Accept">
+<!ENTITY GoskyMember.exit "Exit">
+
+<!ENTITY GoskyMember.title "Use Coupon">
+<!ENTITY GoskyMember.message "Please input coupon code">
+<!ENTITY GoskyMember.code "Coupon Code">
+<!ENTITY GoskyMember.num "Num">

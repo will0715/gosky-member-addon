@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+    <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+    %Dialog;
+    <!ENTITY % Settings SYSTEM "chrome://gosky_member/locale/settings.dtd">
+    %Settings;
+    ]>
+    <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/common/product-button-colors.css" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/be/containers.css" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/be/content.css" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+
+    <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+    <?xul-overlay href="chrome://viviecr/content/dialogs/common_waiting_panel.xul" ?>
+
+    <window title="&settings.title;"
+            hidechrome="true"
+            xmlns:html="http://www.w3.org/1999/xhtml"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+
+        <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+
+        <!-- include controller -->
+        <script src="chrome://gosky_member/content/overlay.js" type="application/x-javascript"/>
+        <script src="chrome://gosky_member/content/settings.js" type="application/x-javascript"/>
+
+        <keyset id="keyset_extensions">
+            <key id="key_enter" keycode="VK_RETURN" oncommand="document.getElementById('save').click()"/>
+            <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('close').click()"/>
+        </keyset>
+
+        <vbox id="ezposSettingsXUL" flex="1" class="container-be">
+            <vbox flex="1" class="container-main">
+                <caption label="&settings.title;" class="label-page-title"/>
+                    <vbox id="basic-panel" orient="vertical" flex="1">
+                        <grid class="data-form-2">
+                            <columns>
+                                <column flex="1"/>
+                                <column flex="1"/>
+                            </columns>
+                            <rows>
+                                <row>
+                                    <vbox>
+                                        <label value="&settings.label.client_id;"/>
+                                        <textbox value="" form="settingForm" name="client_id"/>
+                                    </vbox>
+                                    <vbox>
+                                        <label value="&settings.label.client_secret;"/>
+                                        <textbox value="" form="settingForm" name="client_secret"/>
+                                    </vbox>
+                                </row>
+                            </rows>
+                        </grid>
+                    </vbox>
+                <spacer flex="1" />
+                <hbox>
+                    <hbox class="toolbar" flex="1" toolbarmode="horizontal">
+                    </hbox>
+                    <hbox id="dialogButtons" pack="end" class="exitbar">
+                        <button id="save" default="true" class="button-save" oncommand="$do('save', null, 'GoskyMemberSettings');"/>
+                        <spacer flex="1"/>
+                        <button id="vkb" class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                        <button id="close" default="false" class="button-exit" oncommand="$do('exit', null, 'GoskyMemberSettings');"/>
+                    </hbox>
+                </hbox>
+
+            </vbox>
+        </vbox>
+
+        <popupset id="dialogs">
+        </popupset>
+
+    </window>

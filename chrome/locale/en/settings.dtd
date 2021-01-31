@@ -1,0 +1,3 @@
+<!ENTITY settings.title "Configuration:">
+<!ENTITY settings.label.client_id "Client ID:">
+<!ENTITY settings.label.client_secret "Client Secret:">

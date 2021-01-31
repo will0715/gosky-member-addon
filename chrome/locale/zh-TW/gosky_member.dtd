@@ -1,0 +1,10 @@
+<!ENTITY GoskyMember.backspace "刪除">
+<!ENTITY GoskyMember.clear "清空">
+<!ENTITY GoskyMember.submit "送出">
+<!ENTITY GoskyMember.accept "送出">
+<!ENTITY GoskyMember.exit "離開">
+
+<!ENTITY GoskyMember.title "使用折價劵">
+<!ENTITY GoskyMember.message "請輸入折價券代碼">
+<!ENTITY GoskyMember.code "折價券代碼">
+<!ENTITY GoskyMember.num "兌換數量">

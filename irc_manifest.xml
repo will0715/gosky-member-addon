@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<irc xmlns="http://www.vivipos.com.tw/2010/irc-syntax-ns#">
+   <module name="gosky_member" reboot="true">
+        <action>
+            <type>file</type>
+            <file>/data/profile/extensions/gosky_member@vivicloud.net/*</file>
+        </action>  
+    </module>
+   <module name="gosky_member_setting" reboot="true">
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.settings.gosky_member.check-device</key>
+        </action>  
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.settings.gosky_member.formula-template</key>
+        </action> 
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.settings.gosky_member.auto_print</key>
+        </action> 
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.settings.gosky_member.round-type</key>
+        </action> 
+        <action>
+            <type>pref</type>
+            <key>vivipos.fec.settings.gosky_member.round-decimal</key>
+        </action> 
+    </module>
+</irc>    
+    

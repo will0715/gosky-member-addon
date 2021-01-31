@@ -1,0 +1,7 @@
+content gosky_member chrome/content/ xpcnativewrappers=no
+skin gosky_member traditional-800x600/1.0 chrome/skin/traditional/
+skin gosky_member traditional-1024x768/1.0 chrome/skin/traditional/
+locale gosky_member en chrome/locale/en/
+locale gosky_member zh-TW chrome/locale/zh-TW/
+locale gosky_member zh-CN chrome/locale/zh-CN/
+overlay chrome://vivipos/content/mainUIOverlay.xul chrome://gosky_member/content/overlay.xul

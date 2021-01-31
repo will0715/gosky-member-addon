@@ -1,0 +1,97 @@
+PKG_NAME=gosky_member
+lang=$2
+
+for i in 'dirname' 'rm' 'sha1deep' 'sed' 'mv' 'zip' 'find'
+do
+  echo -n "Check bin file: ${i} ..."
+  if [ X`type ${i} 2>&1 | grep 'not found' -c` = X'1' ]; then
+    echo 'Not found, EXIT!'
+    exit 1
+  else
+    echo 'Okay.'
+  fi
+done
+
+NOW_PATH=`pwd`
+
+cd ${NOW_PATH} &&
+rm -f ${PKG_NAME}_*.xpi ${PKG_NAME}_*.sha1
+
+rel_date=`date +'%Y%m%d%H%M%S'`
+version=`cat VERSION` 
+filename=${PKG_NAME}_${version}_${rel_date}.xpi
+sha1_filename=${PKG_NAME}_${version}_${rel_date}.sha1
+settings_ini=gosky_member_settings.ini
+
+sha1deep -r -l chrome.manifest chrome defaults > ${sha1_filename}
+sha1sum=`sha1deep < ${sha1_filename}`
+
+regsum="s/<em:extensionHash>.*<\/em:extensionHash>/<em:extensionHash>sha1:${sha1sum}<\/em:extensionHash>/g"
+
+sed $regsum install.rdf > install-sum.rdf
+mv install-sum.rdf install.rdf
+
+if [ "$1" != "production" ]; then
+  cat ${settings_ini}.test > ${settings_ini}
+  reg="s/<em:version>.*<\/em:version>/<em:version>${version}.${rel_date}<\/em:version>/g"
+  sed $reg install.rdf > install-new.rdf
+  mv install-new.rdf install.rdf
+else 
+  cat ${settings_ini}.tw > ${settings_ini}
+  reg="s/<em:version>.*<\/em:version>/<em:version>${version}<\/em:version>/g"
+  sed $reg install.rdf > install-new.rdf
+  mv install-new.rdf install.rdf
+fi
+
+tmpBuildXPIDir=`/bin/mktemp -d -p ${NOW_PATH}/ tmp_vivi_XXXXX`
+
+if [ $? -ne 0 ]; then
+
+  echo 'Can not create tmp dir, EXIT!'
+  exit 1
+
+fi
+
+
+if [ -d ${tmpBuildXPIDir} ]; then
+
+  trap "/bin/rm -rf ${tmpBuildXPIDir} >/dev/null 2>&1; exit" 0 1 2 3 15
+else
+  
+  echo "Can not find directory: ${tmpBuildXPIDir}, EXIT!"
+  exit 1
+fi
+
+cd ${tmpBuildXPIDir} &&
+cp ${NOW_PATH}/chrome.manifest ${NOW_PATH}/irc_manifest.xml ${NOW_PATH}/install.rdf ${NOW_PATH}/${settings_ini} ${tmpBuildXPIDir}/ 
+cp -r ${NOW_PATH}/chrome ${tmpBuildXPIDir}/ &&
+cp -r ${NOW_PATH}/defaults ${tmpBuildXPIDir}/ 
+
+if [ $? -ne 0 ]; then
+  exit 1
+fi
+
+encryptSDKJSBin="${NOW_PATH}/vivipos_sdk/encrypt-sdk-js"
+
+for needEncryptFile in "${tmpBuildXPIDir}/chrome/content/controllers/main_controller.js" \
+             "${tmpBuildXPIDir}/chrome/content/controllers/promotion_http.js" \
+             "${tmpBuildXPIDir}/chrome/content/gosky_member_http.js" \
+             "${tmpBuildXPIDir}/chrome/content/gosky_member_settings.js"
+do
+
+  EncryptedFile="${needEncryptFile}c"
+
+  ${encryptSDKJSBin} cast5 ${needEncryptFile} ${EncryptedFile} &&
+  rm -f ${needEncryptFile} >/dev/null 2>&1
+
+  if [ $? -ne 0 ]; then
+    exit 1
+  fi
+
+done
+
+zip -r ${filename} ${settings_ini} chrome.manifest irc_manifest.xml install.rdf chrome/ defaults/
+mv ${filename} ../
+
+
+exit

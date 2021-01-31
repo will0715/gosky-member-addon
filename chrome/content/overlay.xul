@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+
+<overlay id="branch-management-overlay"
+         xmlns:html="http://www.w3.org/1999/xhtml"
+         xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+    
+    <script type="application/x-javascript" src="chrome://gosky_member/content/overlay.js" />
+
+</overlay>

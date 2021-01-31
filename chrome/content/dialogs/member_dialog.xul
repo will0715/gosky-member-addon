@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE window [
+    <!ENTITY % Dialog SYSTEM "chrome://viviecr/locale/dialog.dtd">
+    %Dialog;
+    <!ENTITY % GoskyMember SYSTEM "chrome://gosky_member/locale/gosky_member.dtd">
+    %GoskyMember;
+    ]>
+    <?xml-stylesheet href="chrome://vivipos/skin/" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/common/viviecr.css" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/dialogs/layouts.css" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/dialogs/containers.css" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/dialogs/content.css" type="text/css"?>
+    <?xml-stylesheet href="chrome://viviecr/skin/be/hotkey_prefs.css" type="text/css"?>
+
+    <?xul-overlay href="chrome://global/content/dialogOverlay.xul" ?>
+
+    <window title="dialog.prompt.title;"
+            hidechrome="true"
+            xmlns:html="http://www.w3.org/1999/xhtml"
+            xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+        <script type="application/x-javascript" src="chrome://vivipos/content/init_geckojs.js"/>
+        <script type="application/x-javascript" src="chrome://gosky_member/content/dialogs/barcode_dialog.js" />
+        <keyset id="keyset_extensions">
+            <key id="key_enter" keycode="VK_RETURN" oncommand="doOKButton();"/>
+            <key id="key_clear" keycode="VK_ESCAPE" oncommand="document.getElementById('bcancel').click()" />
+        </keyset>
+        <vbox flex="1" class="container-dialog">
+
+            <vbox class="container-main" flex="1">
+                
+                <hbox>
+                    <vbox>
+                    <spacer flex="1"/>
+                    <image src="payment_gateway_logo.png" style="width:120px; height:120px;" width="120" height="120"/>
+                    <spacer flex="1"/>
+                    </vbox>
+
+                    <vbox flex="1">
+                        <label id="payment_gateway_dialog_caption" value="&GoskyMember.title;" class="label-page-title"/>
+                        <separator class="groove-thin"/>
+                        
+			            <separator class="groove-thin"/>
+                        <hbox id="auth_hbox">
+                            <label id="auth_hbox_label" value="&GoskyMember.code;" class="label-page-title"/>
+                            <textbox id="qrcode" value=""  name="qrcode" type="text"/>
+                        </hbox>
+                        <separator class="groove-thin"/>
+                    </vbox>
+
+                </hbox>
+
+                <separator class="groove-thin"/>
+                <spacer flex="1"/>
+                <hbox>
+                    <hbox flex="1" pack="center" class="toolbar" toolbarmode="horizontal">
+                        <button id="bcancel" label="&GoskyMember.exit;" default="true" onclick="doCancelButton();"/>
+                    </hbox>
+                    <hbox id="dialogButtons" pack="end" class="exitbar">
+                        <button class="button-vkb" oncommand="VirtualKeyboard.toggle();"/>
+                    </hbox>
+                </hbox>
+            </vbox>
+        </vbox>
+    </window>
